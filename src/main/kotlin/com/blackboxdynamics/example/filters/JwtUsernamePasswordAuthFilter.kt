@@ -51,9 +51,8 @@ class JwtUsernamePasswordAuthFilter(
                 .withSubject(authResult.name)
                 .withClaim("authorities",
                     authResult.authorities
-                        .stream()
                         .map { s: GrantedAuthority -> s.authority }
-                        .collect(Collectors.toList()))
+                        .toList())
                 .withIssuedAt(Date(System.currentTimeMillis()))
                 .withExpiresAt(Date(System.currentTimeMillis() + 1000 * 60 * 60 * config.expirationDays))
                 .withIssuer(config.issuer)
